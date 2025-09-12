@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
+  <title>Draw Together - For My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Premium Draw Controls */
+    .draw-container {
+      width: 100%;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+    
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4/3;
+      margin: 22px 0;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(231, 76, 60, 0.15);
+    }
+    
+    #drawingCanvas {
+      width: 100%;
+      height: 100%;
+      background: white;
+      border-radius: 18px;
+      cursor: crosshair;
+      display: block;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    .draw-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-top: 18px;
+      justify-content: center;
+    }
+    
+    .color-picker {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .color-option {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.25s ease;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .color-option.selected {
+      transform: scale(1.25);
+      border-color: #333;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      z-index: 2;
+    }
+    
+    .line-width-picker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .line-width-option {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .line-width-option.selected {
+      transform: scale(1.25);
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #e74c3c;
+      border-color: #e74c3c;
+      z-index: 2;
+    }
+    
+    .line-width-preview {
+      width: 22px;
+      height: 2px;
+      background: #333;
+      border-radius: 2px;
+    }
+    
+    .instructions {
+      text-align: center;
+      font-size: 0.98rem;
+      color: #e74c3c;
+      margin: 16px 0;
+      padding: 12px;
+      background: rgba(231, 76, 60, 0.08);
+      border-radius: 18px;
+      border-left: 3px solid #e74c3c;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Premium Header -->
+  <div class="title-container">
+    <div class="title-wrapper">
+      <div class="title-content">
+        <h1 class="homepage-title">🎨 Draw Together</h1>
+        <div class="distance-symbol">
+          <div class="heart">❤️</div>
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="heart">❤️</div>
+        </div>
+        <p class="title-sub">Draw something special for each other on our shared canvas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Draw Together Tile -->
+  <div class="draw-container">
+    <div class="countdown-container">
+      <div class="birthday-icon">🎨</div>
+      <div class="countdown-title">Create Something Beautiful</div>
+      
+      <p class="instructions">
+        Use your mouse or touch to draw. Share your creation with each other!
+      </p>
+      
+      <div class="canvas-container">
+        <canvas id="drawingCanvas"></canvas>
+      </div>
+      
+      <div class="draw-controls">
+        <div class="color-picker">
+          <div class="color-option selected" style="background-color: #e74c3c;" data-color="#e74c3c"></div>
+          <div class="color-option" style="background-color: #3498db;" data-color="#3498db"></div>
+          <div class="color-option" style="background-color: #2ecc71;" data-color="#2ecc71"></div>
+          <div class="color-option" style="background-color: #f1c40f;" data-color="#f1c40f"></div>
+          <div class="color-option" style="background-color: #9b59b6;" data-color="#9b59b6"></div>
+          <div class="color-option" style="background-color: #1abc9c;" data-color="#1abc9c"></div>
+          <div class="color-option" style="background-color: #34495e;" data-color="#34495e"></div>
+          <div class="color-option" style="background-color: #000;" data-color="#000"></div>
+        </div>
+        
+        <div class="line-width-picker">
+          <div class="line-width-option selected" data-width="2">
+            <div class="line-width-preview" style="width: 10px;"></div>
+          </div>
+          <div class="line-width-option" data-width="4">
+            <div class="line-width-preview" style="width: 15px;"></div>
+          </div>
+          <div class="line-width-option" data-width="8">
+            <div class="line-width-preview" style="width: 20px;"></div>
+          </div>
+          <div class="line-width-option" data-width="12">
+            <div class="line-width-preview" style="width: 25px;"></div>
+          </div>
+        </div>
+        
+        <button class="action-btn" id="clearBtn">Clear Canvas 🧹</button>
+      </div>
+      
+      <div class="gift-message">
+        <h3>❤️ Why This Matters</h3>
+        <p>Draw something special for your loved one. This is your shared space to create memories together, no matter the distance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-button">← Back to Home</a>
+
+  <!-- Footer -->
+  <div class="footer">
+    Every stroke is a message of love. ❤️
+  </div>
+
+  <script>
+    // Premium Mobile touch optimization
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("Premium Draw Together - DOM fully loaded");
+      
+      try {
+        // Initialize premium floating hearts
+        createPremiumFloatingHearts();
+        console.log("Premium floating hearts initialized");
+        
+        // Initialize drawing canvas
+        setupPremiumDrawing();
+        console.log("Premium drawing setup started");
+        
+        // Prevent accidental zooming on mobile
+        document.addEventListener('touchmove', function(e) {
+          if (e.scale !== 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+      } catch (error) {
+        console.error("Premium Error in DOMContentLoaded:", error);
+      }
+    });
+
+    // Premium Floating Hearts
+    function createPremiumFloatingHearts() {
+      const heartsContainer = document.getElementById('floatingHearts') || document.body;
+      
+      // Create more hearts for premium effect
+      for (let i = 0; i < 35; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '❤️';
+        
+        // Random position
+        heart.style.left = Math.random() * 100 + '%';
+        
+        // Random animation duration (slower for premium feel)
+        const duration = Math.random() * 5 + 6;
+        heart.style.animationDuration = duration + 's';
+        
+        // Random size with more variation
+        const size = Math.random() * 10 + 12;
+        heart.style.fontSize = size + 'px';
+        
+        // Random opacity for depth
+        heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+        
+        // Add subtle rotation for premium effect
+        heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+        
+        heartsContainer.appendChild(heart);
+      }
+      
+      // Add premium animation keyframes
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatHeart {
+          0% {
+            transform: translateY(100vh) rotate(0deg) scale(0.9);
+            opacity: 0;
+          }
+          8% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          92% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          100% {
+            transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // Premium Drawing Setup
+    function setupPremiumDrawing() {
+      // Drawing setup
+      const canvas = document.getElementById('drawingCanvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas size based on container
+      function resizeCanvas() {
+        const container = canvas.parentElement;
+        canvas.width = container.clientWidth;
+        canvas.height = container.clientHeight;
+        
+        // Clear canvas with white background
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      
+      // Initial resize
+      resizeCanvas();
+      
+      // Resize on window resize
+      window.addEventListener('resize', resizeCanvas);
+      
+      // Drawing variables
+      let isDrawing = false;
+      let lastX = 0;
+      let lastY = 0;
+      let currentColor = '#e74c3c';
+      let lineWidth = 2;
+      
+      // Haptic feedback function (mobile only)
+      function triggerHapticFeedback() {
+        if ('vibrate' in navigator) {
+          navigator.vibrate(10); // Short vibration for mobile
+        }
+      }
+      
+      // Start drawing
+      function startDrawing(e) {
+        isDrawing = true;
+        [lastX, lastY] = [e.offsetX, e.offsetY];
+        
+        // Trigger haptic feedback for mobile touch start
+        if (e.type === 'touchstart') {
+          triggerHapticFeedback();
+        }
+      }
+      
+      // Draw
+      function draw(e) {
+        if (!isDrawing) return;
+        
+        e.preventDefault();
+        
+        // Get coordinates (works for both mouse and touch)
+        let x, y;
+        if (e.type.includes('touch')) {
+          const rect = canvas.getBoundingClientRect();
+          x = e.touches[0].clientX - rect.left;
+          y = e.touches[0].clientY - rect.top;
+        } else {
+          x = e.offsetX;
+          y = e.offsetY;
+        }
+        
+        ctx.strokeStyle = currentColor;
+        ctx.lineWidth = lineWidth;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        ctx.beginPath();
+        ctx.moveTo(lastX, lastY);
+        ctx.lineTo(x, y);
+        ctx.stroke();
+        
+        [lastX, lastY] = [x, y];
+      }
+      
+      // Stop drawing
+      function stopDrawing() {
+        isDrawing = false;
+        ctx.beginPath();
+      }
+      
+      // Set color
+      function setColor(color) {
+        currentColor = color;
+        document.querySelectorAll('.color-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+        
+        // Premium visual feedback
+        const colorOption = event.target;
+        colorOption.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          colorOption.style.transform = 'scale(1.25)';
+        }, 100);
+        setTimeout(() => {
+          colorOption.style.transform = '';
+        }, 250);
+      }
+      
+      // Set line width
+      function setLineWidth(width) {
+        lineWidth = width;
+        document.querySelectorAll('.line-width-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        event.target.classList.add('selected');
+        
+        // Premium visual feedback
+        const widthOption = event.target;
+        widthOption.style.transform = 'scale(1.3)';
+        setTimeout(() => {
+          widthOption.style.transform = 'scale(1.25)';
+        }, 100);
+        setTimeout(() => {
+          widthOption.style.transform = '';
+        }, 250);
+      }
+      
+      // Clear canvas
+      function clearCanvas() {
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Premium visual feedback
+        const clearBtn = document.getElementById('clearBtn');
+        clearBtn.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          clearBtn.style.transform = 'scale(1)';
+        }, 200);
+      }
+      
+      // Event listeners for desktop
+      canvas.addEventListener('mousedown', startDrawing);
+      canvas.addEventListener('mousemove', draw);
+      canvas.addEventListener('mouseup', stopDrawing);
+      canvas.addEventListener('mouseout', stopDrawing);
+      
+      // Event listeners for touch devices
+      canvas.addEventListener('touchstart', startDrawing, { passive: false });
+      canvas.addEventListener('touchmove', draw, { passive: false });
+      canvas.addEventListener('touchend', stopDrawing);
+      
+      // Color picker
+      document.querySelectorAll('.color-option').forEach(option => {
+        option.addEventListener('click', function() {
+          setColor(this.getAttribute('data-color'));
+        });
+      });
+      
+      // Line width picker
+      document.querySelectorAll('.line-width-option').forEach(option => {
+        option.addEventListener('click', function() {
+          setLineWidth(parseInt(this.getAttribute('data-width')));
+        });
+      });
+      
+      // Clear button
+      document.getElementById('clearBtn').addEventListener('click', clearCanvas);
+      
+      // Premium hover effects for controls
+      const colorOptions = document.querySelectorAll('.color-option');
+      colorOptions.forEach(option => {
+        option.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.3)';
+          this.style.boxShadow = '0 5px 12px rgba(0, 0, 0, 0.15)';
+        });
+        
+        option.addEventListener('mouseleave', function() {
+          if (!this.classList.contains('selected')) {
+            this.style.transform = '';
+            this.style.boxShadow = '0 3px 8px rgba(0, 0, 0, 0.1)';
+          }
+        });
+      });
+      
+      const lineWidthOptions = document.querySelectorAll('.line-width-option');
+      lineWidthOptions.forEach(option => {
+        option.addEventListener('mouseenter', function() {
+          this.style.transform = 'scale(1.3)';
+          this.style.boxShadow = '0 5px 12px rgba(0, 0, 0, 0.15)';
+        });
+        
+        option.addEventListener('mouseleave', function() {
+          if (!this.classList.contains('selected')) {
+            this.style.transform = '';
+            this.style.boxShadow = '0 3px 8px rgba(0, 0, 0, 0.1)';
+          }
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>

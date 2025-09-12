@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Birthday Countdown - My Beautiful Girl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating Hearts Background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Premium Header with Long Distance Theme -->
+    <div class="title-container">
+        <div class="title-wrapper">
+            <div class="title-content">
+                <h1 class="homepage-title">🎂 Birthday Countdown</h1>
+                
+                <div class="distance-symbol">
+                    <div class="heart">❤️</div>
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="heart">❤️</div>
+                </div>
+                
+                <div class="distance-message">
+                    "Every second until your birthday feels like an eternity, my love. 
+                    But knowing you're growing up so beautifully makes every moment worth it."
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Countdown Container -->
+    <div class="countdown-container">
+        <div class="birthday-icon">🎉</div>
+        <div class="countdown-title">Your 16th Birthday Is Coming!</div>
+        
+        <div class="countdown-timer">
+            <div class="time-unit">
+                <div class="time-number" id="days">00</div>
+                <div class="time-label">Days</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-number" id="hours">00</div>
+                <div class="time-label">Hours</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-number" id="minutes">00</div>
+                <div class="time-label">Minutes</div>
+            </div>
+            <div class="time-unit">
+                <div class="time-number" id="seconds">00</div>
+                <div class="time-label">Seconds</div>
+            </div>
+        </div>
+
+        <div class="countdown-message" id="message">
+            Time until your magical 16th birthday...
+        </div>
+
+        <div class="gift-message">
+            <h3>❤️ A Little Love Note</h3>
+            <p>Happy 16th birthday to my beautiful girl! You're growing up so fast — but you'll always be my little star. Every moment with you feels like magic.</p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">← Back to Home</a>
+
+    <!-- Footer -->
+    <div class="footer">
+        Made with ❤️ for my precious princess, no matter the distance
+    </div>
+
+    <script>
+        // Premium Mobile touch optimization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Premium Birthday Countdown - DOM fully loaded");
+            
+            try {
+                // Initialize premium floating hearts
+                createPremiumFloatingHearts();
+                console.log("Premium floating hearts initialized");
+                
+                // Initialize countdown
+                setupPremiumCountdown();
+                console.log("Premium countdown setup started");
+                
+                // Prevent accidental zooming on mobile
+                document.addEventListener('touchmove', function(e) {
+                    if (e.scale !== 1) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
+            } catch (error) {
+                console.error("Premium Error in DOMContentLoaded:", error);
+                // Fallback to show an error message
+                const messageElement = document.getElementById('message');
+                if (messageElement) {
+                    messageElement.textContent = "Oops! Something went wrong. Please refresh the page.";
+                    messageElement.style.color = "#e74c3c";
+                }
+            }
+        });
+
+        // Premium Countdown Timer
+        function setupPremiumCountdown() {
+            try {
+                // Set target date: 10 June 2026 (16th birthday)
+                const targetDate = new Date('June 10, 2026 12:00:00');
+                
+                function updateCountdown() {
+                    const now = new Date();
+                    const diff = targetDate - now;
+
+                    if (diff <= 0) {
+                        document.getElementById('message').textContent = "🎉 It's your 16th birthday! Happy Birthday, my love!";
+                        return;
+                    }
+
+                    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                    // Add premium animation when numbers change
+                    updateNumberWithAnimation('days', days);
+                    updateNumberWithAnimation('hours', hours);
+                    updateNumberWithAnimation('minutes', minutes);
+                    updateNumberWithAnimation('seconds', seconds);
+                }
+                
+                // Update a number with premium animation
+                function updateNumberWithAnimation(elementId, newValue) {
+                    const element = document.getElementById(elementId);
+                    const currentValue = parseInt(element.textContent);
+                    
+                    // Only animate if the value changed
+                    if (newValue !== currentValue) {
+                        // Fade out current value
+                        element.style.opacity = '0.7';
+                        element.style.transform = 'scale(0.9)';
+                        
+                        setTimeout(() => {
+                            // Update to new value
+                            element.textContent = newValue.toString().padStart(2, '0');
+                            
+                            // Fade in new value with bounce
+                            element.style.transition = 'opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                            element.style.opacity = '1';
+                            element.style.transform = 'scale(1.05)';
+                            
+                            setTimeout(() => {
+                                element.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+                                element.style.transform = 'scale(1)';
+                            }, 150);
+                        }, 250);
+                    } else {
+                        element.textContent = newValue.toString().padStart(2, '0');
+                    }
+                }
+
+                // Update countdown every second
+                setInterval(updateCountdown, 1000);
+                updateCountdown(); // Initial call
+                
+                // Add premium hover effects to time units
+                const timeUnits = document.querySelectorAll('.time-unit');
+                timeUnits.forEach(unit => {
+                    unit.addEventListener('mouseenter', function() {
+                        this.style.boxShadow = '0 8px 22px rgba(0, 0, 0, 0.3)';
+                        this.style.transform = 'translateY(-7px) scale(1.06)';
+                    });
+                    
+                    unit.addEventListener('mouseleave', function() {
+                        this.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
+                        this.style.transform = '';
+                    });
+                });
+            } catch (error) {
+                console.error("Premium Error in setupCountdown:", error);
+                const messageElement = document.getElementById('message');
+                if (messageElement) {
+                    messageElement.textContent = "Error loading countdown. Please refresh the page.";
+                    messageElement.style.color = "#e74c3c";
+                }
+            }
+        }
+        
+        // Premium Floating Hearts
+        function createPremiumFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts') || document.body;
+            
+            // Create more hearts for premium effect
+            for (let i = 0; i < 35; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤️';
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration (slower for premium feel)
+                const duration = Math.random() * 5 + 6;
+                heart.style.animationDuration = duration + 's';
+                
+                // Random size with more variation
+                const size = Math.random() * 10 + 12;
+                heart.style.fontSize = size + 'px';
+                
+                // Random opacity for depth
+                heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+                
+                // Add subtle rotation for premium effect
+                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Add premium animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatHeart {
+                    0% {
+                        transform: translateY(100vh) rotate(0deg) scale(0.9);
+                        opacity: 0;
+                    }
+                    8% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    92% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    100% {
+                        transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>

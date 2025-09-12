@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>For My Love - Birthday Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ULTIMATE TITLE-SUB STYLE - PREMIUM ELEGANCE */
+    .title-sub {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.32rem;
+      color: #e74c3c;
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 450;
+      letter-spacing: 0.4px;
+      animation: fadeInBounce 1.4s ease-out;
+      opacity: 1 !important;
+      line-height: 1.5;
+      text-shadow: 
+        0 1px 1px rgba(255, 255, 255, 0.7),
+        0 2px 4px rgba(0, 0, 0, 0.08);
+      background: linear-gradient(135deg, #e74c3c, #c0392b, #8e44ad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: relative;
+      max-width: 95%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .title-sub::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 75px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #e74c3c, transparent);
+      border-radius: 1px;
+      opacity: 0.7;
+    }
+    
+    @keyframes fadeInBounce {
+      0% {
+        opacity: 0;
+        transform: translateY(15px) scale(0.98);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-3px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    
+    /* MOBILE OPTIMIZED VERSION */
+    @media (max-width: 480px) {
+      .title-sub {
+        font-size: 1.22rem;
+        margin-top: 12px;
+        line-height: 1.45;
+        letter-spacing: 0.3px;
+      }
+      
+      .title-sub::after {
+        width: 65px;
+        bottom: -7px;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .title-sub {
+        font-size: 1.15rem;
+        margin-top: 10px;
+      }
+      
+      .title-sub::after {
+        width: 55px;
+        bottom: -6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Premium Header -->
+  <div class="title-container">
+    <div class="title-wrapper">
+      <div class="title-content">
+        <h1 class="homepage-title">For My Dearest Princess🎀</h1>
+        <div class="distance-symbol">
+          <div class="heart">❤️</div>
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="heart">❤️</div>
+        </div>
+        <p class="title-sub">Though miles apart, my heart is full of love for you 💖✨</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Tiles -->
+  <div class="tiles-container">
+  
+    <!-- Birthday Countdown Tile -->
+    <a href="birthday.html" class="tile">
+      <div class="tile-icon">🎂</div>
+      <h2 class="tile-title">Birthday Countdown</h2>
+      <p class="tile-description">See how many days until her special day!</p>
+    </a>
+    <!-- Playlist Tile -->
+    <a href="playlist.html" class="tile">
+      <div class="tile-icon">🎵</div>
+      <h2 class="tile-title">Our Special Playlist</h2>
+      <p class="tile-description">This is the soundtrack of us — songs that remind me of you.</p>
+    </a>
+
+    <!-- Draw Together Tile -->
+    <a href="draw.html" class="tile">
+      <div class="tile-icon">🎨</div>
+      <h2 class="tile-title">Draw Together</h2>
+      <p class="tile-description">Draw something special for each other on our shared canvas.</p>
+    </a>
+
+    <!-- Compliment Generator -->
+    <a href="compliment.html" class="tile">
+      <div class="tile-icon">💖</div>
+      <h2 class="tile-title">Sweet Compliments</h2>
+      <p class="tile-description">Tap below to receive a dose of love.</p>
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    A little love from me to you 💌💓
+  </div>
+
+  <script>
+    // Premium floating hearts
+    document.addEventListener('DOMContentLoaded', function() {
+      const heartsContainer = document.getElementById('floatingHearts') || document.body;
+      
+      // Create premium floating hearts
+      for (let i = 0; i < 35; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '❤️';
+        
+        // Random position
+        heart.style.left = Math.random() * 100 + '%';
+        
+        // Random animation duration
+        const duration = Math.random() * 5 + 6;
+        heart.style.animationDuration = duration + 's';
+        
+        // Random size
+        const size = Math.random() * 10 + 12;
+        heart.style.fontSize = size + 'px';
+        
+        // Random opacity
+        heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+        
+        // Add rotation for premium effect
+        heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+        
+        heartsContainer.appendChild(heart);
+      }
+      
+      // Add premium animation keyframes
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatHeart {
+          0% {
+            transform: translateY(100vh) rotate(0deg) scale(0.9);
+            opacity: 0;
+          }
+          10% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          90% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          100% {
+            transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <title>Our Playlist - For My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating Hearts Background -->
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <!-- Premium Header -->
+  <div class="title-container">
+    <div class="title-wrapper">
+      <div class="title-content">
+        <h1 class="homepage-title">🎵 Our Special Playlist</h1>
+        <div class="distance-symbol">
+          <div class="heart">❤️</div>
+          <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+          <div class="heart">❤️</div>
+        </div>
+        <p class="title-sub">Songs that carry my love across to you.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Playlist Tile -->
+  <div class="countdown-container">
+    <div class="birthday-icon">🎶</div>
+    <div class="countdown-title">The Soundtrack of Us</div>
+    
+    <div class="song-list">
+      <div class="song">
+        <div class="song-title">Perfect – Ed Sheeran</div>
+        <div class="song-desc">Because you're perfect in every single way.</div>
+      </div>
+      
+      <div class="song">
+        <div class="song-title">All of Me – John Legend</div>
+        <div class="song-desc">I love you with everything I am — all of me.</div>
+      </div>
+      
+      <div class="song">
+        <div class="song-title">A Thousand Years – Christina Perri</div>
+        <div class="song-desc">My love will last longer than time itself.</div>
+      </div>
+      
+      <div class="song">
+        <div class="song-title">I Choose You – Sara Bareilles</div>
+        <div class="song-desc">Every day, without hesitation, I choose you.</div>
+      </div>
+      
+      <div class="song">
+        <div class="song-title">Marry You – Bruno Mars</div>
+        <div class="song-desc">One day, I'll ask you — and I already know your answer.</div>
+      </div>
+    </div>
+
+    <div class="gift-message">
+      <h3>❤️ Why These Songs?</h3>
+      <p>Each song on this list represents a special moment in our relationship. When I hear them, I think of you and how lucky I am to have you in my life.</p>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-button">← Back to Home</a>
+
+  <!-- Footer -->
+  <div class="footer">
+    Every note sings of my love for you. ❤️
+  </div>
+
+  <script>
+    // Premium Mobile touch optimization
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("Premium Playlist Page - DOM fully loaded");
+      
+      try {
+        // Initialize premium floating hearts
+        createPremiumFloatingHearts();
+        console.log("Premium floating hearts initialized");
+        
+        // Add premium hover effects to songs
+        setupPremiumSongEffects();
+        console.log("Premium song effects setup completed");
+        
+        // Prevent accidental zooming on mobile
+        document.addEventListener('touchmove', function(e) {
+          if (e.scale !== 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+      } catch (error) {
+        console.error("Premium Error in DOMContentLoaded:", error);
+      }
+    });
+
+    // Premium Floating Hearts
+    function createPremiumFloatingHearts() {
+      const heartsContainer = document.getElementById('floatingHearts') || document.body;
+      
+      // Create more hearts for premium effect
+      for (let i = 0; i < 35; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '❤️';
+        
+        // Random position
+        heart.style.left = Math.random() * 100 + '%';
+        
+        // Random animation duration (slower for premium feel)
+        const duration = Math.random() * 5 + 6;
+        heart.style.animationDuration = duration + 's';
+        
+        // Random size with more variation
+        const size = Math.random() * 10 + 12;
+        heart.style.fontSize = size + 'px';
+        
+        // Random opacity for depth
+        heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+        
+        // Add subtle rotation for premium effect
+        heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+        
+        heartsContainer.appendChild(heart);
+      }
+      
+      // Add premium animation keyframes
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes floatHeart {
+          0% {
+            transform: translateY(100vh) rotate(0deg) scale(0.9);
+            opacity: 0;
+          }
+          8% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          92% {
+            opacity: ${Math.random() * 0.3 + 0.5};
+          }
+          100% {
+            transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+            opacity: 0;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+    
+    // Premium Song Effects
+    function setupPremiumSongEffects() {
+      const songs = document.querySelectorAll('.song');
+      
+      songs.forEach(song => {
+        // Add hover effect
+        song.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateX(8px)';
+          this.style.background = 'rgba(231, 76, 60, 0.08)';
+          this.style.borderRadius = '14px';
+          this.style.padding = '0 12px';
+        });
+        
+        song.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+          this.style.background = '';
+          this.style.borderRadius = '';
+          this.style.padding = '';
+        });
+        
+        // Add click effect for mobile
+        song.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          this.style.background = 'rgba(231, 76, 60, 0.12)';
+          this.style.borderRadius = '14px';
+          this.style.padding = '0 12px';
+        });
+        
+        song.addEventListener('touchend', function() {
+          setTimeout(() => {
+            this.style.background = '';
+            this.style.borderRadius = '';
+            this.style.padding = '';
+          }, 200);
+        });
+      });
+    }
+  </script>
+
+</body>
+</html>
