@@ -2,10 +2,101 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Birthday Countdown - My Beautiful Girl</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+      /* Mobile-specific countdown styles */
+      @media (max-width: 480px) {
+        .countdown-container {
+          padding: 26px 18px;
+          border-radius: 22px;
+        }
+        
+        .birthday-icon {
+          font-size: 3.6rem;
+          margin-bottom: 16px;
+        }
+        
+        .countdown-title {
+          font-size: 1.85rem;
+          margin-bottom: 22px;
+        }
+        
+        .countdown-timer {
+          gap: 14px;
+          margin: 24px 0;
+        }
+        
+        .time-unit {
+          min-width: 70px;
+          padding: 15px 9px;
+          border-radius: 15px;
+        }
+        
+        .time-number {
+          font-size: 1.85rem;
+        }
+        
+        .time-label {
+          font-size: 0.88rem;
+        }
+        
+        .countdown-message {
+          font-size: 1.05rem;
+          padding: 15px;
+        }
+        
+        .gift-message {
+          padding: 22px;
+          margin-top: 26px;
+          border-radius: 15px;
+        }
+        
+        .gift-message h3 {
+          font-size: 1.5rem;
+          margin-bottom: 14px;
+        }
+        
+        .gift-message p {
+          font-size: 1.05rem;
+        }
+      }
+      
+      @media (max-width: 360px) {
+        .countdown-container {
+          padding: 22px 14px;
+          border-radius: 20px;
+        }
+        
+        .birthday-icon {
+          font-size: 3.2rem;
+        }
+        
+        .countdown-title {
+          font-size: 1.7rem;
+        }
+        
+        .time-unit {
+          min-width: 65px;
+          padding: 14px 8px;
+          border-radius: 14px;
+        }
+        
+        .time-number {
+          font-size: 1.7rem;
+        }
+      }
+      
+      /* Mobile touch optimizations for countdown */
+      .time-unit {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
 </head>
 <body>
     <!-- Floating Hearts Background -->
@@ -87,6 +178,10 @@
                 createPremiumFloatingHearts();
                 console.log("Premium floating hearts initialized");
                 
+                // Initialize mobile-specific optimizations
+                setupMobileOptimizations();
+                console.log("Mobile optimizations setup completed");
+                
                 // Initialize countdown
                 setupPremiumCountdown();
                 console.log("Premium countdown setup started");
@@ -108,11 +203,113 @@
             }
         });
 
+        // Premium Floating Hearts
+        function createPremiumFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts') || document.body;
+            
+            // Create more hearts for premium effect
+            for (let i = 0; i < 35; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤️';
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration (slower for premium feel)
+                const duration = Math.random() * 5 + 6;
+                heart.style.animationDuration = duration + 's';
+                
+                // Random size with more variation
+                const size = Math.random() * 10 + 12;
+                heart.style.fontSize = size + 'px';
+                
+                // Random opacity for depth
+                heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+                
+                // Add subtle rotation for premium effect
+                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Add premium animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatHeart {
+                    0% {
+                        transform: translateY(100vh) rotate(0deg) scale(0.9);
+                        opacity: 0;
+                    }
+                    8% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    92% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    100% {
+                        transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Mobile-specific optimizations
+        function setupMobileOptimizations() {
+          // Add touch feedback to time units
+          const timeUnits = document.querySelectorAll('.time-unit');
+          
+          timeUnits.forEach(unit => {
+            // Add touch start feedback
+            unit.addEventListener('touchstart', function(e) {
+              e.preventDefault();
+              this.style.transform = 'scale(1.06)';
+              this.style.boxShadow = '0 8px 22px rgba(0, 0, 0, 0.3)';
+              
+              // Add vibration feedback for supported devices
+              if ('vibrate' in navigator) {
+                navigator.vibrate(10);
+              }
+            });
+            
+            // Reset transform on touch end
+            unit.addEventListener('touchend', function() {
+              setTimeout(() => {
+                this.style.transform = '';
+                this.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
+              }, 250);
+            });
+            
+            // Reset transform if touch is canceled
+            unit.addEventListener('touchcancel', function() {
+              this.style.transform = '';
+              this.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
+            });
+          });
+          
+          // Add iOS specific adjustments
+          if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
+          }
+          
+          // Add Android specific optimizations
+          if (/Android/i.test(navigator.userAgent)) {
+            // Prevent accidental zoom
+            document.addEventListener('touchmove', function(e) {
+              if (e.scale !== 1) {
+                e.preventDefault();
+              }
+            }, { passive: false });
+          }
+        }
+
         // Premium Countdown Timer
         function setupPremiumCountdown() {
             try {
-                // Set target date: 10 June 2026 (16th birthday)
-                const targetDate = new Date('June 10, 2026 12:00:00');
+                // Set target date: June 10, 2026 (16th birthday)
+                const targetDate = new Date('June 10, 2026 00:00:00');
                 
                 function updateCountdown() {
                     const now = new Date();
@@ -168,20 +365,6 @@
                 // Update countdown every second
                 setInterval(updateCountdown, 1000);
                 updateCountdown(); // Initial call
-                
-                // Add premium hover effects to time units
-                const timeUnits = document.querySelectorAll('.time-unit');
-                timeUnits.forEach(unit => {
-                    unit.addEventListener('mouseenter', function() {
-                        this.style.boxShadow = '0 8px 22px rgba(0, 0, 0, 0.3)';
-                        this.style.transform = 'translateY(-7px) scale(1.06)';
-                    });
-                    
-                    unit.addEventListener('mouseleave', function() {
-                        this.style.boxShadow = '0 6px 18px rgba(0, 0, 0, 0.2)';
-                        this.style.transform = '';
-                    });
-                });
             } catch (error) {
                 console.error("Premium Error in setupCountdown:", error);
                 const messageElement = document.getElementById('message');
@@ -190,59 +373,6 @@
                     messageElement.style.color = "#e74c3c";
                 }
             }
-        }
-        
-        // Premium Floating Hearts
-        function createPremiumFloatingHearts() {
-            const heartsContainer = document.getElementById('floatingHearts') || document.body;
-            
-            // Create more hearts for premium effect
-            for (let i = 0; i < 35; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'floating-heart';
-                heart.innerHTML = '❤️';
-                
-                // Random position
-                heart.style.left = Math.random() * 100 + '%';
-                
-                // Random animation duration (slower for premium feel)
-                const duration = Math.random() * 5 + 6;
-                heart.style.animationDuration = duration + 's';
-                
-                // Random size with more variation
-                const size = Math.random() * 10 + 12;
-                heart.style.fontSize = size + 'px';
-                
-                // Random opacity for depth
-                heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
-                
-                // Add subtle rotation for premium effect
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                heartsContainer.appendChild(heart);
-            }
-            
-            // Add premium animation keyframes
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes floatHeart {
-                    0% {
-                        transform: translateY(100vh) rotate(0deg) scale(0.9);
-                        opacity: 0;
-                    }
-                    8% {
-                        opacity: ${Math.random() * 0.3 + 0.5};
-                    }
-                    92% {
-                        opacity: ${Math.random() * 0.3 + 0.5};
-                    }
-                    100% {
-                        transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
         }
     </script>
 </body>

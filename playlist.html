@@ -2,10 +2,89 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Our Playlist - For My Love</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Mobile-specific playlist styles */
+    @media (max-width: 480px) {
+      .countdown-container {
+        padding: 26px 18px;
+        border-radius: 22px;
+      }
+      
+      .birthday-icon {
+        font-size: 3.6rem;
+        margin-bottom: 16px;
+      }
+      
+      .countdown-title {
+        font-size: 1.85rem;
+        margin-bottom: 22px;
+      }
+      
+      .song-list {
+        margin-top: 16px;
+      }
+      
+      .song {
+        margin-bottom: 14px;
+        padding-bottom: 14px;
+      }
+      
+      .song-title {
+        font-size: 1.05rem;
+        margin-bottom: 4px;
+      }
+      
+      .song-desc {
+        font-size: 0.92rem;
+      }
+      
+      .gift-message {
+        padding: 22px;
+        margin-top: 26px;
+        border-radius: 15px;
+      }
+      
+      .gift-message h3 {
+        font-size: 1.5rem;
+        margin-bottom: 14px;
+      }
+      
+      .gift-message p {
+        font-size: 1.05rem;
+      }
+    }
+    
+    @media (max-width: 360px) {
+      .countdown-container {
+        padding: 22px 14px;
+        border-radius: 20px;
+      }
+      
+      .birthday-icon {
+        font-size: 3.2rem;
+      }
+      
+      .countdown-title {
+        font-size: 1.7rem;
+      }
+      
+      .song-title {
+        font-size: 0.98rem;
+      }
+    }
+    
+    /* Mobile touch optimizations for songs */
+    .song {
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+  </style>
 </head>
 <body>
 
@@ -87,6 +166,10 @@
         createPremiumFloatingHearts();
         console.log("Premium floating hearts initialized");
         
+        // Add mobile-specific optimizations
+        setupMobileOptimizations();
+        console.log("Mobile optimizations setup completed");
+        
         // Add premium hover effects to songs
         setupPremiumSongEffects();
         console.log("Premium song effects setup completed");
@@ -155,40 +238,57 @@
       document.head.appendChild(style);
     }
     
+    // Mobile-specific optimizations
+    function setupMobileOptimizations() {
+      // Add iOS specific adjustments
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
+      }
+      
+      // Add Android specific optimizations
+      if (/Android/i.test(navigator.userAgent)) {
+        // Prevent accidental zoom
+        document.addEventListener('touchmove', function(e) {
+          if (e.scale !== 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+      }
+    }
+    
     // Premium Song Effects
     function setupPremiumSongEffects() {
       const songs = document.querySelectorAll('.song');
       
       songs.forEach(song => {
-        // Add hover effect
-        song.addEventListener('mouseenter', function() {
-          this.style.transform = 'translateX(8px)';
-          this.style.background = 'rgba(231, 76, 60, 0.08)';
-          this.style.borderRadius = '14px';
-          this.style.padding = '0 12px';
-        });
-        
-        song.addEventListener('mouseleave', function() {
-          this.style.transform = '';
-          this.style.background = '';
-          this.style.borderRadius = '';
-          this.style.padding = '';
-        });
-        
-        // Add click effect for mobile
+        // Add touch feedback
         song.addEventListener('touchstart', function(e) {
           e.preventDefault();
+          this.style.transform = 'translateX(10px)';
           this.style.background = 'rgba(231, 76, 60, 0.12)';
           this.style.borderRadius = '14px';
           this.style.padding = '0 12px';
+          
+          // Add vibration feedback
+          if ('vibrate' in navigator) {
+            navigator.vibrate(15);
+          }
         });
         
         song.addEventListener('touchend', function() {
           setTimeout(() => {
+            this.style.transform = '';
             this.style.background = '';
             this.style.borderRadius = '';
             this.style.padding = '';
           }, 200);
+        });
+        
+        song.addEventListener('touchcancel', function() {
+          this.style.transform = '';
+          this.style.background = '';
+          this.style.borderRadius = '';
+          this.style.padding = '';
         });
       });
     }

@@ -3,9 +3,83 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Compliments Just for You</title>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
+    <style>
+      /* Mobile-specific compliment styles */
+      @media (max-width: 480px) {
+        .compliment-container {
+          max-width: 290px;
+          height: 190px;
+        }
+        
+        .compliment-card {
+          padding: 23px 20px;
+          border-radius: 22px;
+        }
+        
+        .compliment-icon {
+          font-size: 3.2rem;
+          margin-bottom: 15px;
+        }
+        
+        .compliment-text {
+          font-size: 1.08rem;
+          height: 95px;
+        }
+        
+        .compliment-button {
+          padding: 15px 24px;
+          font-size: 1.12rem;
+          border-radius: 30px;
+        }
+        
+        .compliment-instructions {
+          font-size: 0.98rem;
+          padding: 10px;
+        }
+        
+        .compliment-hint {
+          font-size: 0.95rem;
+          margin-top: 10px;
+        }
+      }
+      
+      @media (max-width: 360px) {
+        .compliment-container {
+          max-width: 260px;
+          height: 175px;
+        }
+        
+        .compliment-icon {
+          font-size: 2.7rem;
+        }
+        
+        .compliment-text {
+          font-size: 0.98rem;
+          height: 85px;
+        }
+        
+        .compliment-button {
+          padding: 13px 21px;
+          font-size: 1.02rem;
+        }
+      }
+      
+      /* Mobile touch optimizations for compliment card */
+      .compliment-card {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+      
+      .compliment-button {
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+      }
+    </style>
 </head>
 <body>
     <!-- Floating Hearts Background -->
@@ -39,7 +113,7 @@
     <div class="compliment-experience">
         <div class="countdown-title" style="margin-bottom: 12px; font-size: 1.9rem; color: #e74c3c; font-family: 'Dancing Script', cursive;">Receive My Love</div>
         <p class="compliment-instructions">
-            Tap the card to get a heartfelt compliment ❤️
+            Tap the card or button to get a heartfelt compliment ❤️
         </p>
         
         <div class="compliment-container">
@@ -50,9 +124,10 @@
                 </div>
             </div>
         </div>
-
-        <div class="compliment-hint" style="margin-top: 15px; font-size: 1.02rem;">
-            💡 Just tap anywhere on the card to receive more sweet words
+        
+        <div class="compliment-action">
+            <button class="compliment-button" id="complimentButton">Send Love to My Princess 💘</button>
+            <div class="compliment-hint">Tap anywhere on the card for more sweet words</div>
         </div>
 
         <div class="gift-message">
@@ -81,6 +156,10 @@
                 createPremiumFloatingHearts();
                 console.log("Premium floating hearts initialized");
                 
+                // Initialize mobile-specific optimizations
+                setupMobileOptimizations();
+                console.log("Mobile optimizations setup completed");
+                
                 // Initialize compliment generator
                 setupPremiumCompliments();
                 console.log("Premium compliment generator setup started");
@@ -101,6 +180,77 @@
                 }
             }
         });
+
+        // Premium Floating Hearts
+        function createPremiumFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts') || document.body;
+            
+            // Create more hearts for premium effect
+            for (let i = 0; i < 35; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerHTML = '❤️';
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + '%';
+                
+                // Random animation duration (slower for premium feel)
+                const duration = Math.random() * 5 + 6;
+                heart.style.animationDuration = duration + 's';
+                
+                // Random size with more variation
+                const size = Math.random() * 10 + 12;
+                heart.style.fontSize = size + 'px';
+                
+                // Random opacity for depth
+                heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
+                
+                // Add subtle rotation for premium effect
+                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+                
+                heartsContainer.appendChild(heart);
+            }
+            
+            // Add premium animation keyframes
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatHeart {
+                    0% {
+                        transform: translateY(100vh) rotate(0deg) scale(0.9);
+                        opacity: 0;
+                    }
+                    8% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    92% {
+                        opacity: ${Math.random() * 0.3 + 0.5};
+                    }
+                    100% {
+                        transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Mobile-specific optimizations
+        function setupMobileOptimizations() {
+          // Add iOS specific adjustments
+          if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+            document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
+          }
+          
+          // Add Android specific optimizations
+          if (/Android/i.test(navigator.userAgent)) {
+            // Prevent accidental zoom
+            document.addEventListener('touchmove', function(e) {
+              if (e.scale !== 1) {
+                e.preventDefault();
+              }
+            }, { passive: false });
+          }
+        }
 
         // Premium Compliment Generator - ULTIMATE VERSION
         function setupPremiumCompliments() {
@@ -185,11 +335,13 @@
 
                 let currentIndex = 0;
                 const complimentText = document.getElementById('complimentText');
+                const complimentButton = document.getElementById('complimentButton');
                 const complimentCard = document.getElementById('complimentCard');
                 let isAnimating = false;
 
                 console.log("Premium Elements retrieved:", {
                     complimentText: !!complimentText,
+                    complimentButton: !!complimentButton,
                     complimentCard: !!complimentCard
                 });
 
@@ -267,10 +419,59 @@
                     }
                 }
 
-                // Allow tapping on the card with premium effects
+                // Set up button click with premium effects
+                if (complimentButton) {
+                    console.log("Premium Adding event listener to button");
+                    complimentButton.addEventListener('click', showPremiumCompliment);
+                    
+                    // Premium touch feedback for mobile
+                    complimentButton.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.97)';
+                        this.style.boxShadow = '0 10px 25px rgba(231, 76, 60, 0.45)';
+                        
+                        // Add vibration feedback
+                        triggerPremiumHapticFeedback();
+                    });
+                    
+                    complimentButton.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            this.style.boxShadow = '0 8px 20px rgba(231, 76, 60, 0.4)';
+                        }, 150);
+                    });
+                    
+                    // Premium hover effect
+                    complimentButton.addEventListener('mouseenter', function() {
+                        this.style.boxShadow = '0 12px 30px rgba(231, 76, 60, 0.5)';
+                    });
+                    
+                    complimentButton.addEventListener('mouseleave', function() {
+                        this.style.boxShadow = '0 8px 20px rgba(231, 76, 60, 0.4)';
+                    });
+                }
+                
+                // Allow tapping on the card too with premium effects
                 if (complimentCard) {
                     console.log("Premium Adding event listener to card");
                     complimentCard.addEventListener('click', showPremiumCompliment);
+                    
+                    // Premium touch feedback for mobile
+                    complimentCard.addEventListener('touchstart', function(e) {
+                        e.preventDefault();
+                        this.style.transform = 'scale(0.96)';
+                        this.style.boxShadow = '0 8px 25px rgba(231, 76, 60, 0.25)';
+                        
+                        // Add vibration feedback
+                        triggerPremiumHapticFeedback();
+                    });
+                    
+                    complimentCard.addEventListener('touchend', function() {
+                        setTimeout(() => {
+                            this.style.transform = '';
+                            this.style.boxShadow = '';
+                        }, 150);
+                    });
                     
                     // Premium hover effect for card
                     complimentCard.addEventListener('mouseenter', function() {
@@ -279,26 +480,6 @@
                     
                     complimentCard.addEventListener('mouseleave', function() {
                         this.style.boxShadow = '0 12px 35px rgba(231, 76, 60, 0.18), 0 4px 15px rgba(0, 0, 0, 0.08)';
-                    });
-                    
-                    // Premium touch feedback for mobile
-                    complimentCard.addEventListener('touchstart', function(e) {
-                        try {
-                            e.preventDefault();
-                            this.style.transform = 'scale(0.96)';
-                            this.style.boxShadow = '0 8px 25px rgba(231, 76, 60, 0.25)';
-                        } catch (error) {
-                            console.log("Premium Touchstart error:", error);
-                        }
-                    });
-                    
-                    complimentCard.addEventListener('touchend', function() {
-                        try {
-                            this.style.transform = '';
-                            this.style.boxShadow = '';
-                        } catch (error) {
-                            console.log("Premium Touchend error:", error);
-                        }
                     });
                 }
                 
@@ -322,59 +503,6 @@
                     complimentText.style.color = "#e74c3c";
                 }
             }
-        }
-        
-        // Premium Floating Hearts with enhanced animation
-        function createPremiumFloatingHearts() {
-            const heartsContainer = document.getElementById('floatingHearts') || document.body;
-            
-            // Create more hearts for premium effect
-            for (let i = 0; i < 35; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'floating-heart';
-                heart.innerHTML = '❤️';
-                
-                // Random position
-                heart.style.left = Math.random() * 100 + '%';
-                
-                // Random animation duration (slower for premium feel)
-                const duration = Math.random() * 5 + 6;
-                heart.style.animationDuration = duration + 's';
-                
-                // Random size with more variation
-                const size = Math.random() * 10 + 12;
-                heart.style.fontSize = size + 'px';
-                
-                // Random opacity for depth
-                heart.style.opacity = (Math.random() * 0.3 + 0.4).toFixed(2);
-                
-                // Add subtle rotation for premium effect
-                heart.style.transform = `rotate(${Math.random() * 360}deg)`;
-                
-                heartsContainer.appendChild(heart);
-            }
-            
-            // Add premium animation keyframes
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes floatHeart {
-                    0% {
-                        transform: translateY(100vh) rotate(0deg) scale(0.9);
-                        opacity: 0;
-                    }
-                    8% {
-                        opacity: ${Math.random() * 0.3 + 0.5};
-                    }
-                    92% {
-                        opacity: ${Math.random() * 0.3 + 0.5};
-                    }
-                    100% {
-                        transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
-                        opacity: 0;
-                    }
-                }
-            `;
-            document.head.appendChild(style);
         }
     </script>
 </body>

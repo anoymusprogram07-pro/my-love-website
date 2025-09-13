@@ -2,87 +2,66 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>For My Love - Birthday Surprise</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ULTIMATE TITLE-SUB STYLE - PREMIUM ELEGANCE */
-    .title-sub {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.32rem;
-      color: #e74c3c;
-      text-align: center;
-      margin-top: 14px;
-      font-weight: 450;
-      letter-spacing: 0.4px;
-      animation: fadeInBounce 1.4s ease-out;
-      opacity: 1 !important;
-      line-height: 1.5;
-      text-shadow: 
-        0 1px 1px rgba(255, 255, 255, 0.7),
-        0 2px 4px rgba(0, 0, 0, 0.08);
-      background: linear-gradient(135deg, #e74c3c, #c0392b, #8e44ad);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: relative;
-      max-width: 95%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    
-    .title-sub::after {
-      content: '';
-      position: absolute;
-      bottom: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 75px;
-      height: 2px;
-      background: linear-gradient(to right, transparent, #e74c3c, transparent);
-      border-radius: 1px;
-      opacity: 0.7;
-    }
-    
-    @keyframes fadeInBounce {
-      0% {
-        opacity: 0;
-        transform: translateY(15px) scale(0.98);
-      }
-      60% {
-        opacity: 1;
-        transform: translateY(-3px) scale(1.02);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    
-    /* MOBILE OPTIMIZED VERSION */
+    /* Mobile-specific homepage styles */
     @media (max-width: 480px) {
-      .title-sub {
-        font-size: 1.22rem;
-        margin-top: 12px;
-        line-height: 1.45;
-        letter-spacing: 0.3px;
+      .title-container {
+        margin-top: 15px;
       }
       
-      .title-sub::after {
-        width: 65px;
-        bottom: -7px;
+      .title-wrapper {
+        padding: 20px 15px;
+      }
+      
+      .tiles-container {
+        gap: 20px;
+      }
+      
+      .tile {
+        height: 185px;
+        padding: 20px 15px;
+        border-radius: 22px;
+      }
+      
+      .tile-icon {
+        font-size: 3.2rem;
+        margin-bottom: 12px;
+      }
+      
+      .tile-title {
+        font-size: 1.55rem;
+        margin-bottom: 8px;
+      }
+      
+      .tile-description {
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+      
+      .footer {
+        margin-top: 25px;
+        padding: 12px;
+        font-size: 0.9rem;
       }
     }
     
     @media (max-width: 360px) {
-      .title-sub {
-        font-size: 1.15rem;
-        margin-top: 10px;
+      .tile {
+        height: 175px;
       }
       
-      .title-sub::after {
-        width: 55px;
-        bottom: -6px;
+      .tile-icon {
+        font-size: 2.8rem;
+      }
+      
+      .tile-title {
+        font-size: 1.45rem;
       }
     }
   </style>
@@ -96,7 +75,7 @@
   <div class="title-container">
     <div class="title-wrapper">
       <div class="title-content">
-        <h1 class="homepage-title">For My Dearest Princess🎀</h1>
+        <h1 class="homepage-title">Happy Birthday, My Love ❤️</h1>
         <div class="distance-symbol">
           <div class="heart">❤️</div>
           <div class="dots">
@@ -106,20 +85,21 @@
           </div>
           <div class="heart">❤️</div>
         </div>
-        <p class="title-sub">Though miles apart, my heart is full of love for you 💖✨</p>
+        <p class="title-sub">My love for you knows no bounds and fills every moment of my life with joy.</p>
       </div>
     </div>
   </div>
 
   <!-- Premium Tiles -->
   <div class="tiles-container">
-  
+
     <!-- Birthday Countdown Tile -->
     <a href="birthday.html" class="tile">
       <div class="tile-icon">🎂</div>
       <h2 class="tile-title">Birthday Countdown</h2>
-      <p class="tile-description">See how many days until her special day!</p>
+      <p class="tile-description">See how many days until your special day.</p>
     </a>
+
     <!-- Playlist Tile -->
     <a href="playlist.html" class="tile">
       <div class="tile-icon">🎵</div>
@@ -141,16 +121,53 @@
       <p class="tile-description">Tap below to receive a dose of love.</p>
     </a>
 
+    <!-- Memory Game Tile -->
+    <a href="memory-game.html" class="tile">
+      <div class="tile-icon">🎮</div>
+      <h2 class="tile-title">Memory Game</h2>
+      <p class="tile-description">Find matching pairs to reveal my sweet messages for you.</p>
+    </a>
+
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    A little love from me to you 💌💓
+    Made with endless love, no matter the distance.<br>
+    Forever yours ❤️
   </div>
 
   <script>
-    // Premium floating hearts
+    // Premium Mobile touch optimization
     document.addEventListener('DOMContentLoaded', function() {
+      console.log("Premium Homepage - DOM fully loaded");
+      
+      try {
+        // Initialize premium floating hearts
+        createPremiumFloatingHearts();
+        console.log("Premium floating hearts initialized");
+        
+        // Add mobile-specific touch optimizations
+        setupMobileOptimizations();
+        console.log("Mobile optimizations setup completed");
+        
+        // Prevent accidental zooming on mobile
+        document.addEventListener('touchmove', function(e) {
+          if (e.scale !== 1) {
+            e.preventDefault();
+          }
+        }, { passive: false });
+        
+        // Add iOS specific adjustments
+        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+          document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
+        }
+      } catch (error) {
+        console.error("Premium Error in DOMContentLoaded:", error);
+      }
+    });
+
+    // Premium floating hearts
+    function createPremiumFloatingHearts() {
       const heartsContainer = document.getElementById('floatingHearts') || document.body;
       
       // Create premium floating hearts
@@ -200,7 +217,74 @@
         }
       `;
       document.head.appendChild(style);
-    });
+    }
+    
+    // Mobile-specific optimizations
+    function setupMobileOptimizations() {
+      // Add touch feedback to all interactive elements
+      const interactiveElements = document.querySelectorAll('.tile, .action-btn, .back-button');
+      
+      interactiveElements.forEach(element => {
+        // Add touch start feedback
+        element.addEventListener('touchstart', function(e) {
+          e.preventDefault();
+          this.style.transform = 'scale(0.97)';
+          
+          // Add vibration feedback for supported devices
+          if ('vibrate' in navigator) {
+            navigator.vibrate(15);
+          }
+        });
+        
+        // Reset transform on touch end
+        element.addEventListener('touchend', function() {
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 150);
+        });
+        
+        // Reset transform if touch is canceled
+        element.addEventListener('touchcancel', function() {
+          this.style.transform = '';
+        });
+      });
+      
+      // Prevent text selection on mobile
+      document.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      }, { passive: false });
+      
+      // Add double-tap prevention
+      let lastTouchEnd = 0;
+      document.addEventListener('touchend', function(event) {
+        const now = new Date().getTime();
+        if (now - lastTouchEnd <= 300) {
+          event.preventDefault();
+        }
+        lastTouchEnd = now;
+      }, false);
+      
+      // Add iOS specific scrolling fix
+      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        document.body.style.webkitOverflowScrolling = 'touch';
+        
+        // Prevent overscroll bounce
+        document.body.addEventListener('touchmove', function(e) {
+          if (e.target === document.body) e.preventDefault();
+        }, { passive: false });
+      }
+      
+      // Add Android specific optimizations
+      if (/Android/i.test(navigator.userAgent)) {
+        // Increase touch target sizes
+        const buttons = document.querySelectorAll('.action-btn, .back-button');
+        buttons.forEach(button => {
+          button.style.minHeight = '50px';
+        });
+      }
+    }
   </script>
 
 </body>

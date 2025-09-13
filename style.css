@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent; /* Removes tap highlight on iOS */
 }
 
 body {
@@ -21,6 +22,17 @@ body {
   position: relative;
   overflow-x: hidden;
   background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mobile-specific body adjustments */
+@media (max-width: 768px) {
+  body {
+    padding: 12px;
+    touch-action: manipulation; /* Better touch response on mobile */
+    overscroll-behavior: contain; /* Prevents bounce effect on iOS */
+  }
 }
 
 /* Premium gradient animation */
@@ -49,6 +61,10 @@ body {
   pointer-events: none;
   z-index: -1;
   filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .floating-heart:nth-child(odd) {
@@ -99,6 +115,7 @@ body {
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(255, 248, 248, 0.97));
   text-align: center;
   transition: all 0.3s ease;
+  touch-action: manipulation;
 }
 
 .title-wrapper:hover {
@@ -139,6 +156,7 @@ body {
   line-height: 1.2;
   margin: 12px 0;
   position: relative;
+  touch-action: manipulation;
 }
 
 .homepage-title::after {
@@ -196,6 +214,7 @@ body {
   line-height: 1.55;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
+  touch-action: manipulation;
 }
 
 .distance-message:hover {
@@ -212,12 +231,14 @@ body {
   font-size: 1.9rem;
   color: #e74c3c;
   gap: 15px;
+  touch-action: manipulation;
 }
 
 .distance-symbol .heart {
   margin: 0;
   animation: pulse 1.8s infinite;
   transition: transform 0.3s ease;
+  touch-action: manipulation;
 }
 
 .distance-symbol .heart:hover {
@@ -289,6 +310,8 @@ body {
   position: relative;
   text-decoration: none;
   color: #2c3e50;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .tile::before {
@@ -577,6 +600,8 @@ body {
   overflow: hidden;
   z-index: 1;
   width: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .action-btn::after {
@@ -644,6 +669,8 @@ body {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   position: relative;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .back-button::before {
@@ -725,6 +752,8 @@ body {
   border: 2px solid rgba(231, 76, 60, 0.18);
   overflow: hidden;
   position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .compliment-card::before {
@@ -867,6 +896,8 @@ body {
   border: 2px solid transparent;
   transition: all 0.25s ease;
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .color-option.selected {
@@ -893,6 +924,8 @@ body {
   cursor: pointer;
   transition: all 0.25s ease;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .line-width-option.selected {
@@ -933,9 +966,162 @@ body {
 }
 
 /* Responsive Design */
+@media (max-width: 768px) {
+  .title-container {
+    margin: 22px 0 32px;
+  }
+  
+  .title-wrapper {
+    padding: 25px 22px;
+    border-radius: 26px;
+  }
+  
+  .homepage-title {
+    font-size: 2.5rem;
+  }
+  
+  .title-sub {
+    font-size: 1.15rem;
+  }
+  
+  .distance-message {
+    font-size: 1.08rem;
+    padding: 13px 16px;
+    border-radius: 17px;
+  }
+  
+  .distance-symbol {
+    font-size: 1.75rem;
+    margin: 16px 0;
+    gap: 14px;
+  }
+  
+  .tiles-container {
+    gap: 22px;
+    margin: 18px 0;
+  }
+  
+  .tile {
+    height: 205px;
+    padding: 26px 20px;
+    border-radius: 24px;
+  }
+  
+  .tile-icon {
+    font-size: 3.8rem;
+    margin-bottom: 18px;
+  }
+  
+  .tile-title {
+    font-size: 1.75rem;
+  }
+  
+  .tile-description {
+    font-size: 1.02rem;
+  }
+  
+  .countdown-container {
+    padding: 30px 22px;
+    border-radius: 24px;
+  }
+  
+  .birthday-icon {
+    font-size: 4rem;
+    margin-bottom: 20px;
+  }
+  
+  .countdown-title {
+    font-size: 2rem;
+    margin-bottom: 26px;
+  }
+  
+  .countdown-timer {
+    gap: 16px;
+  }
+  
+  .time-unit {
+    min-width: 80px;
+    padding: 17px 11px;
+    border-radius: 17px;
+  }
+  
+  .time-number {
+    font-size: 2.1rem;
+  }
+  
+  .time-label {
+    font-size: 0.95rem;
+  }
+  
+  .countdown-message {
+    font-size: 1.12rem;
+    padding: 17px;
+  }
+  
+  .gift-message {
+    padding: 26px;
+    margin-top: 30px;
+    border-radius: 17px;
+  }
+  
+  .gift-message h3 {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+  }
+  
+  .gift-message p {
+    font-size: 1.12rem;
+  }
+  
+  .compliment-container {
+    max-width: 300px;
+    height: 200px;
+  }
+  
+  .compliment-card {
+    padding: 26px 22px;
+    border-radius: 22px;
+  }
+  
+  .compliment-icon {
+    font-size: 3.5rem;
+    margin-bottom: 16px;
+  }
+  
+  .compliment-text {
+    font-size: 1.1rem;
+    height: 98px;
+  }
+  
+  .action-btn {
+    padding: 16px 26px;
+    font-size: 1.15rem;
+    border-radius: 31px;
+  }
+  
+  .compliment-instructions {
+    font-size: 1.02rem;
+    padding: 11px;
+  }
+  
+  .back-button {
+    padding: 13px 26px;
+    font-size: 1.1rem;
+    border-radius: 31px;
+  }
+  
+  .footer {
+    font-size: 0.98rem;
+    padding: 16px;
+  }
+}
+
+/* Mobile-Specific Optimizations */
 @media (max-width: 480px) {
   body {
     padding: 12px;
+    touch-action: manipulation;
+    overscroll-behavior: contain;
   }
   
   .title-wrapper {
@@ -1081,6 +1267,24 @@ body {
     font-size: 0.95rem;
     padding: 15px;
   }
+  
+  /* Mobile-specific touch targets */
+  .action-btn, .back-button, .tile, .compliment-card {
+    min-height: 50px; /* Minimum touch target size for mobile */
+  }
+  
+  .compliment-button {
+    min-height: 55px;
+  }
+  
+  /* Mobile-specific spacing */
+  .tiles-container {
+    margin-bottom: 25px;
+  }
+  
+  .title-container {
+    margin-bottom: 30px;
+  }
 }
 
 @media (max-width: 360px) {
@@ -1145,5 +1349,42 @@ body {
   .back-button {
     padding: 11px 22px;
     font-size: 0.98rem;
+  }
+  
+  /* Extra mobile touch optimizations */
+  .action-btn, .back-button, .tile, .compliment-card {
+    min-height: 52px;
+  }
+  
+  .compliment-button {
+    min-height: 58px;
+  }
+}
+
+/* iPhone specific adjustments */
+@media screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) {
+  /* iPhone X and newer */
+  body {
+    padding-top: constant(safe-area-inset-top);
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-left: constant(safe-area-inset-left);
+    padding-right: constant(safe-area-inset-right);
+  }
+  
+  .footer {
+    margin-bottom: constant(safe-area-inset-bottom);
+  }
+}
+
+/* Android mobile optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Mobile-specific adjustments for touch devices */
+  .tile, .compliment-card, .action-btn, .back-button {
+    tap-highlight-color: transparent;
+  }
+  
+  /* Prevent accidental zooming on mobile */
+  * {
+    touch-action: manipulation;
   }
 }
