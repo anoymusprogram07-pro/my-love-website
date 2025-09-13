@@ -2,69 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0"/>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
   <title>For My Love - Birthday Surprise</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
-  <style>
-    /* Mobile-specific homepage styles */
-    @media (max-width: 480px) {
-      .title-container {
-        margin-top: 15px;
-      }
-      
-      .title-wrapper {
-        padding: 20px 15px;
-      }
-      
-      .tiles-container {
-        gap: 20px;
-      }
-      
-      .tile {
-        height: 185px;
-        padding: 20px 15px;
-        border-radius: 22px;
-      }
-      
-      .tile-icon {
-        font-size: 3.2rem;
-        margin-bottom: 12px;
-      }
-      
-      .tile-title {
-        font-size: 1.55rem;
-        margin-bottom: 8px;
-      }
-      
-      .tile-description {
-        font-size: 0.95rem;
-        line-height: 1.5;
-      }
-      
-      .footer {
-        margin-top: 25px;
-        padding: 12px;
-        font-size: 0.9rem;
-      }
-    }
-    
-    @media (max-width: 360px) {
-      .tile {
-        height: 175px;
-      }
-      
-      .tile-icon {
-        font-size: 2.8rem;
-      }
-      
-      .tile-title {
-        font-size: 1.45rem;
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -75,7 +16,7 @@
   <div class="title-container">
     <div class="title-wrapper">
       <div class="title-content">
-        <h1 class="homepage-title">Happy Birthday, My Love ❤️</h1>
+        <h1 class="homepage-title">For My Dearest Princess🎀</h1>
         <div class="distance-symbol">
           <div class="heart">❤️</div>
           <div class="dots">
@@ -85,26 +26,33 @@
           </div>
           <div class="heart">❤️</div>
         </div>
-        <p class="title-sub">My love for you knows no bounds and fills every moment of my life with joy.</p>
+        <p class="title-sub">Though miles apart, my heart is full of love for you 💖✨</p>
       </div>
     </div>
   </div>
 
   <!-- Premium Tiles -->
   <div class="tiles-container">
-
+  
     <!-- Birthday Countdown Tile -->
     <a href="birthday.html" class="tile">
       <div class="tile-icon">🎂</div>
       <h2 class="tile-title">Birthday Countdown</h2>
-      <p class="tile-description">See how many days until your special day.</p>
+      <p class="tile-description">See how many days until her special day!</p>
     </a>
 
+    <!-- Memory Game Tile -->
+    <a href="memory-game.html" class="tile">
+      <div class="tile-icon">🎮</div>
+      <h2 class="tile-title">Memory Game</h2>
+      <p class="tile-description">Find matching pairs to reveal my sweet messages for you.</p>
+    </a>
+    
     <!-- Playlist Tile -->
     <a href="playlist.html" class="tile">
       <div class="tile-icon">🎵</div>
       <h2 class="tile-title">Our Special Playlist</h2>
-      <p class="tile-description">This is the soundtrack of us — songs that remind me of you.</p>
+      <p class="tile-description">This is the soundtrack of us – songs that remind me of you.</p>
     </a>
 
     <!-- Draw Together Tile -->
@@ -121,54 +69,24 @@
       <p class="tile-description">Tap below to receive a dose of love.</p>
     </a>
 
-    <!-- Memory Game Tile -->
-    <a href="memory-game.html" class="tile">
-      <div class="tile-icon">🎮</div>
-      <h2 class="tile-title">Memory Game</h2>
-      <p class="tile-description">Find matching pairs to reveal my sweet messages for you.</p>
-    </a>
-
   </div>
 
   <!-- Footer -->
   <div class="footer">
-    Made with endless love, no matter the distance.<br>
-    Forever yours ❤️
+    A little love from me to you 💌💕
   </div>
 
   <script>
-    // Premium Mobile touch optimization
-    document.addEventListener('DOMContentLoaded', function() {
-      console.log("Premium Homepage - DOM fully loaded");
-      
-      try {
-        // Initialize premium floating hearts
-        createPremiumFloatingHearts();
-        console.log("Premium floating hearts initialized");
-        
-        // Add mobile-specific touch optimizations
-        setupMobileOptimizations();
-        console.log("Mobile optimizations setup completed");
-        
-        // Prevent accidental zooming on mobile
-        document.addEventListener('touchmove', function(e) {
-          if (e.scale !== 1) {
-            e.preventDefault();
-          }
-        }, { passive: false });
-        
-        // Add iOS specific adjustments
-        if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
-        }
-      } catch (error) {
-        console.error("Premium Error in DOMContentLoaded:", error);
-      }
-    });
+    // Global variables
+    let heartsCreated = false;
 
-    // Premium floating hearts
-    function createPremiumFloatingHearts() {
-      const heartsContainer = document.getElementById('floatingHearts') || document.body;
+    // Create floating hearts (only once)
+    function createFloatingHearts() {
+      if (heartsCreated) return;
+      heartsCreated = true;
+
+      const heartsContainer = document.getElementById('floatingHearts');
+      if (!heartsContainer) return;
       
       // Create premium floating hearts
       for (let i = 0; i < 35; i++) {
@@ -196,95 +114,41 @@
         heartsContainer.appendChild(heart);
       }
       
-      // Add premium animation keyframes
-      const style = document.createElement('style');
-      style.textContent = `
-        @keyframes floatHeart {
-          0% {
-            transform: translateY(100vh) rotate(0deg) scale(0.9);
-            opacity: 0;
+      // Add premium animation keyframes (only once)
+      if (!document.getElementById('floatingHeartsStyle')) {
+        const style = document.createElement('style');
+        style.id = 'floatingHeartsStyle';
+        style.textContent = `
+          @keyframes floatHeart {
+            0% {
+              transform: translateY(100vh) rotate(0deg) scale(0.9);
+              opacity: 0;
+            }
+            10% {
+              opacity: ${Math.random() * 0.3 + 0.5};
+            }
+            90% {
+              opacity: ${Math.random() * 0.3 + 0.5};
+            }
+            100% {
+              transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
+              opacity: 0;
+            }
           }
-          10% {
-            opacity: ${Math.random() * 0.3 + 0.5};
-          }
-          90% {
-            opacity: ${Math.random() * 0.3 + 0.5};
-          }
-          100% {
-            transform: translateY(-150px) rotate(${Math.random() * 360}deg) scale(1.2);
-            opacity: 0;
-          }
-        }
-      `;
-      document.head.appendChild(style);
-    }
-    
-    // Mobile-specific optimizations
-    function setupMobileOptimizations() {
-      // Add touch feedback to all interactive elements
-      const interactiveElements = document.querySelectorAll('.tile, .action-btn, .back-button');
-      
-      interactiveElements.forEach(element => {
-        // Add touch start feedback
-        element.addEventListener('touchstart', function(e) {
-          e.preventDefault();
-          this.style.transform = 'scale(0.97)';
-          
-          // Add vibration feedback for supported devices
-          if ('vibrate' in navigator) {
-            navigator.vibrate(15);
-          }
-        });
-        
-        // Reset transform on touch end
-        element.addEventListener('touchend', function() {
-          setTimeout(() => {
-            this.style.transform = '';
-          }, 150);
-        });
-        
-        // Reset transform if touch is canceled
-        element.addEventListener('touchcancel', function() {
-          this.style.transform = '';
-        });
-      });
-      
-      // Prevent text selection on mobile
-      document.addEventListener('touchstart', function(event) {
-        if (event.touches.length > 1) {
-          event.preventDefault();
-        }
-      }, { passive: false });
-      
-      // Add double-tap prevention
-      let lastTouchEnd = 0;
-      document.addEventListener('touchend', function(event) {
-        const now = new Date().getTime();
-        if (now - lastTouchEnd <= 300) {
-          event.preventDefault();
-        }
-        lastTouchEnd = now;
-      }, false);
-      
-      // Add iOS specific scrolling fix
-      if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        document.body.style.webkitOverflowScrolling = 'touch';
-        
-        // Prevent overscroll bounce
-        document.body.addEventListener('touchmove', function(e) {
-          if (e.target === document.body) e.preventDefault();
-        }, { passive: false });
-      }
-      
-      // Add Android specific optimizations
-      if (/Android/i.test(navigator.userAgent)) {
-        // Increase touch target sizes
-        const buttons = document.querySelectorAll('.action-btn, .back-button');
-        buttons.forEach(button => {
-          button.style.minHeight = '50px';
-        });
+        `;
+        document.head.appendChild(style);
       }
     }
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        createFloatingHearts();
+        console.log("Homepage initialized successfully");
+      } catch (error) {
+        console.error("Error initializing homepage:", error);
+      }
+    });
   </script>
 
 </body>
