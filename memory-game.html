@@ -198,13 +198,6 @@
         // Initialize memory game
         setupPremiumMemoryGame();
         console.log("Premium memory game setup started");
-        
-        // Prevent accidental zooming on mobile
-        document.addEventListener('touchmove', function(e) {
-          if (e.scale !== 1) {
-            e.preventDefault();
-          }
-        }, { passive: false });
       } catch (error) {
         console.error("Premium Error in DOMContentLoaded:", error);
       }
@@ -268,18 +261,13 @@
       // Add iOS specific adjustments
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
         document.body.style.paddingTop = window.innerHeight * 0.02 + 'px';
-        
-        // Prevent overscroll bounce
-        document.body.addEventListener('touchmove', function(e) {
-          if (e.target === document.body) e.preventDefault();
-        }, { passive: false });
       }
       
       // Add Android specific optimizations
       if (/Android/i.test(navigator.userAgent)) {
-        // Prevent accidental zoom
+        // Only prevent zooming, not scrolling
         document.addEventListener('touchmove', function(e) {
-          if (e.scale !== 1) {
+          if (e.scale !== undefined && e.scale !== 1) {
             e.preventDefault();
           }
         }, { passive: false });
@@ -351,8 +339,6 @@
           `;
           
           card.addEventListener('click', flipCard);
-          card.addEventListener('touchstart', handleTouchStart);
-          card.addEventListener('touchend', handleTouchEnd);
           gameBoard.appendChild(card);
         });
         
@@ -364,36 +350,6 @@
         // Reset message
         sweetMessage.textContent = "Flip cards to find matching pairs and see my sweet messages...";
         sweetMessage.classList.remove('heart-icon');
-      }
-      
-      // Touch start variables
-      let touchStartX = 0;
-      let touchStartY = 0;
-      let touchMoved = false;
-      
-      // Handle touch start
-      function handleTouchStart(e) {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        touchMoved = false;
-      }
-      
-      // Handle touch end
-      function handleTouchEnd(e) {
-        // Check if this was a tap or a swipe
-        const currentX = e.changedTouches[0].clientX;
-        const currentY = e.changedTouches[0].clientY;
-        
-        const distance = Math.sqrt(
-          Math.pow(currentX - touchStartX, 2) + 
-          Math.pow(currentY - touchStartY, 2)
-        );
-        
-        // If it was a tap (not a swipe), trigger the click
-        if (distance < 10) {
-          e.preventDefault();
-          flipCard.call(this, e);
-        }
       }
       
       // Flip a card
@@ -436,8 +392,6 @@
         flippedCards.forEach(card => {
           card.classList.add('matched');
           card.removeEventListener('click', flipCard);
-          card.removeEventListener('touchstart', handleTouchStart);
-          card.removeEventListener('touchend', handleTouchEnd);
         });
         
         flippedCards = [];
@@ -530,15 +484,6 @@
         setTimeout(() => {
           this.style.transform = 'scale(1)';
         }, 200);
-      });
-      
-      // Premium hover effects
-      resetBtn.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 12px 30px rgba(155, 89, 182, 0.5)';
-      });
-      
-      resetBtn.addEventListener('mouseleave', function() {
-        this.style.boxShadow = '0 8px 20px rgba(155, 89, 182, 0.4)';
       });
       
       // Initialize the game

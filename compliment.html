@@ -31,12 +31,6 @@
           height: 95px;
         }
         
-        .compliment-button {
-          padding: 15px 24px;
-          font-size: 1.12rem;
-          border-radius: 30px;
-        }
-        
         .compliment-instructions {
           font-size: 0.98rem;
           padding: 10px;
@@ -62,20 +56,10 @@
           font-size: 0.98rem;
           height: 85px;
         }
-        
-        .compliment-button {
-          padding: 13px 21px;
-          font-size: 1.02rem;
-        }
       }
       
       /* Mobile touch optimizations for compliment card */
       .compliment-card {
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: transparent;
-      }
-      
-      .compliment-button {
         touch-action: manipulation;
         -webkit-tap-highlight-color: transparent;
       }
@@ -113,7 +97,7 @@
     <div class="compliment-experience">
         <div class="countdown-title" style="margin-bottom: 12px; font-size: 1.9rem; color: #e74c3c; font-family: 'Dancing Script', cursive;">Receive My Love</div>
         <p class="compliment-instructions">
-            Tap the card or button to get a heartfelt compliment ❤️
+            Tap the card to get a heartfelt compliment ❤️
         </p>
         
         <div class="compliment-container">
@@ -124,10 +108,9 @@
                 </div>
             </div>
         </div>
-        
-        <div class="compliment-action">
-            <button class="compliment-button" id="complimentButton">Send Love to My Princess 💘</button>
-            <div class="compliment-hint">Tap anywhere on the card for more sweet words</div>
+
+        <div class="compliment-hint" style="text-align: center; color: #e74c3c; font-size: 0.95rem; margin-top: 15px; animation: pulseText 2s infinite;">
+            Tap the card for more sweet words
         </div>
 
         <div class="gift-message">
@@ -163,13 +146,6 @@
                 // Initialize compliment generator
                 setupPremiumCompliments();
                 console.log("Premium compliment generator setup started");
-                
-                // Prevent accidental zooming on mobile
-                document.addEventListener('touchmove', function(e) {
-                    if (e.scale !== 1) {
-                        e.preventDefault();
-                    }
-                }, { passive: false });
             } catch (error) {
                 console.error("Premium Error in DOMContentLoaded:", error);
                 // Fallback to show an error message
@@ -243,9 +219,9 @@
           
           // Add Android specific optimizations
           if (/Android/i.test(navigator.userAgent)) {
-            // Prevent accidental zoom
+            // Only prevent zooming, not scrolling
             document.addEventListener('touchmove', function(e) {
-              if (e.scale !== 1) {
+              if (e.scale !== undefined && e.scale !== 1) {
                 e.preventDefault();
               }
             }, { passive: false });
@@ -335,13 +311,11 @@
 
                 let currentIndex = 0;
                 const complimentText = document.getElementById('complimentText');
-                const complimentButton = document.getElementById('complimentButton');
                 const complimentCard = document.getElementById('complimentCard');
                 let isAnimating = false;
 
                 console.log("Premium Elements retrieved:", {
                     complimentText: !!complimentText,
-                    complimentButton: !!complimentButton,
                     complimentCard: !!complimentCard
                 });
 
@@ -419,39 +393,7 @@
                     }
                 }
 
-                // Set up button click with premium effects
-                if (complimentButton) {
-                    console.log("Premium Adding event listener to button");
-                    complimentButton.addEventListener('click', showPremiumCompliment);
-                    
-                    // Premium touch feedback for mobile
-                    complimentButton.addEventListener('touchstart', function(e) {
-                        e.preventDefault();
-                        this.style.transform = 'scale(0.97)';
-                        this.style.boxShadow = '0 10px 25px rgba(231, 76, 60, 0.45)';
-                        
-                        // Add vibration feedback
-                        triggerPremiumHapticFeedback();
-                    });
-                    
-                    complimentButton.addEventListener('touchend', function() {
-                        setTimeout(() => {
-                            this.style.transform = '';
-                            this.style.boxShadow = '0 8px 20px rgba(231, 76, 60, 0.4)';
-                        }, 150);
-                    });
-                    
-                    // Premium hover effect
-                    complimentButton.addEventListener('mouseenter', function() {
-                        this.style.boxShadow = '0 12px 30px rgba(231, 76, 60, 0.5)';
-                    });
-                    
-                    complimentButton.addEventListener('mouseleave', function() {
-                        this.style.boxShadow = '0 8px 20px rgba(231, 76, 60, 0.4)';
-                    });
-                }
-                
-                // Allow tapping on the card too with premium effects
+                // Allow tapping on the card
                 if (complimentCard) {
                     console.log("Premium Adding event listener to card");
                     complimentCard.addEventListener('click', showPremiumCompliment);
@@ -471,15 +413,6 @@
                             this.style.transform = '';
                             this.style.boxShadow = '';
                         }, 150);
-                    });
-                    
-                    // Premium hover effect for card
-                    complimentCard.addEventListener('mouseenter', function() {
-                        this.style.boxShadow = '0 18px 42px rgba(231, 76, 60, 0.25), 0 6px 18px rgba(0, 0, 0, 0.15)';
-                    });
-                    
-                    complimentCard.addEventListener('mouseleave', function() {
-                        this.style.boxShadow = '0 12px 35px rgba(231, 76, 60, 0.18), 0 4px 15px rgba(0, 0, 0, 0.08)';
                     });
                 }
                 
